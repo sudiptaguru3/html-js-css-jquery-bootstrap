@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>jQuery Replace innerHTML of a Div</title>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("button").click(function(){
+        $("#pageTitle").html("<h1>Hello, World!</h1>");
+    });
+});
+</script>
+</head>
+<body>
+    <div id="pageTitle">
+        <p><b>Click the following button to replace me.</b><p>
+    </div>
+    <button type="button">Replace HTML</button>
+</body>
+</html>
