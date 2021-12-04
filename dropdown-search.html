@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta content="initial-scale=1,
+		maximum-scale=1, user-scalable=0" name="viewport" />
+<meta name="viewport" content="width=device-width" />
+
+<!--Datatable plugin CSS file -->
+<link rel="stylesheet" href=
+"https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
+<!--jQuery library file -->
+<script type="text/javascript" src=
+	"https://code.jquery.com/jquery-3.5.1.js">
+</script>
+
+<!--Datatable plugin JS library file -->
+<script type="text/javascript" src=
+"https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js">
+</script>
+
+<style>
+	td {
+	text-align: center;
+	}
+</style>
+</head>
+
+<body>
+<h2>
+	Column specific search filter
+	using DataTables plugin
+</h2>
+
+<!--HTML tables with student data-->
+<table id="tableID" class="display"
+	style="width: 100%">
+	<thead>
+	<tr>
+		<th>StudentID</th>
+		<th>StudentName</th>
+		<th>Age</th>
+		<th>Gender</th>
+		<th>Marks Scored</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>ST1</td>
+		<td>Prema</td>
+		<td>35</td>
+		<td>Female</td>
+		<td>320</td>
+	</tr>
+	<tr>
+		<td>ST2</td>
+		<td>Wincy</td>
+		<td>36</td>
+		<td>Female</td>
+		<td>170</td>
+	</tr>
+	<tr>
+		<td>ST3</td>
+		<td>Ashmita</td>
+
+		<td>41</td>
+		<td>Female</td>
+		<td>860</td>
+	</tr>
+	<tr>
+		<td>ST4</td>
+		<td>Kelina</td>
+		<td>32</td>
+		<td>Female</td>
+		<td>433</td>
+	</tr>
+	<tr>
+		<td>ST5</td>
+		<td>Satvik</td>
+		<td>41</td>
+		<td>male</td>
+		<td>162</td>
+	</tr>
+	<tr>
+		<td>ST6</td>
+		<td>William</td>
+		<td>37</td>
+		<td>Female</td>
+		<td>372</td>
+	</tr>
+	<tr>
+		<td>ST7</td>
+		<td>Chandan</td>
+		<td>31</td>
+		<td>male</td>
+		<td>375</td>
+	</tr>
+	<tr>
+		<td>ST8</td>
+		<td>David</td>
+		<td>45</td>
+		<td>male</td>
+		<td>327</td>
+	</tr>
+	<tr>
+		<td>ST9</td>
+		<td>Harry</td>
+		<td>29</td>
+		<td>male</td>
+		<td>205</td>
+	</tr>
+	<tr>
+		<td>ST10</td>
+		<td>Frost</td>
+		<td>29</td>
+		<td>male</td>
+		<td>300</td>
+	</tr>
+
+	<tr>
+		<td>ST14</td>
+		<td>Fiza</td>
+		<td>31</td>
+		<td>Female</td>
+		<td>750</td>
+	</tr>
+	<tr>
+		<td>ST15</td>
+		<td>Silva</td>
+		<td>34</td>
+		<td>male</td>
+		<td>985</td>
+	</tr>
+	</tbody>
+</table>
+<br />
+
+<script>
+
+	/* Initialization of datatables */
+	$(document).ready(function () {
+
+		// Paging and other information are
+		// disabled if required, set to true
+		var myTable = $("#tableID").DataTable({
+		paging: false,
+		searching: true,
+		info: false,
+		});
+
+		// 2d array is converted to 1D array
+		// structure the actions are
+		// implemented on EACH column
+		myTable
+		.columns()
+		.flatten()
+		.each(function (colID) {
+
+			// Create the select list in the
+			// header column header
+			// On change of the list values,
+			// perform search operation
+			var mySelectList = $("<select />")
+			.appendTo(myTable.column(colID).header())
+			.on("change", function () {
+				myTable.column(colID).search($(this).val());
+
+				// update the changes using draw() method
+				myTable.column(colID).draw();
+			});
+
+			// Get the search cached data for the
+			// first column add to the select list
+			// using append() method
+			// sort the data to display to user
+			// all steps are done for EACH column
+			myTable
+			.column(colID)
+			.cache("search")
+			.sort()
+			.each(function (param) {
+				mySelectList.append(
+				$('<option value="' + param + '">'
+					+ param + "</option>")
+				);
+			});
+		});
+	});
+</script>
+</body>
+
+</html>
